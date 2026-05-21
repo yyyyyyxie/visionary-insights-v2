@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 export default defineConfig({
+  base: "/visionary-insights/",
   plugins: [
     TanStackRouterVite(),
     react(),
