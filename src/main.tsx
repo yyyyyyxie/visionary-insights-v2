@@ -4,7 +4,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import "./styles.css";
 
-const router = createRouter({ routeTree, basepath: "/visionary-insights" });
+const router = createRouter({ routeTree, basepath: "/visionary-insights-v2" });
 
 declare module "@tanstack/react-router" {
   interface Register {
