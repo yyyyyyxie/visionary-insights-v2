@@ -1,5 +1,5 @@
 import { FileText, ExternalLink, X, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, assetUrl } from "@/lib/utils";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
@@ -79,7 +79,7 @@ export function ImagePlaceholder({ caption, ratio = "16/9", src, originalCaption
         style={{ aspectRatio: ratio }}
       >
         {src ? (
-          <img src={src} alt={caption} className="absolute inset-0 w-full h-full object-contain" />
+          <img src={assetUrl(src)} alt={caption} className="absolute inset-0 w-full h-full object-contain" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-2 text-muted-foreground/50">
@@ -120,7 +120,7 @@ export function ComparisonGroup({ original, results }: { original: string; resul
         <div className="grid grid-cols-3 gap-4 items-start">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">Original</div>
-            <img src={original} alt="Original" className="w-full rounded-lg border border-border/30" />
+            <img src={assetUrl(original)} alt="Original" className="w-full rounded-lg border border-border/30" />
           </div>
           {results.map((r, i) => (
             <div key={i}>
@@ -130,7 +130,7 @@ export function ComparisonGroup({ original, results }: { original: string; resul
               )}>
                 {r.label}
               </div>
-              <img src={r.src} alt={r.label} className="w-full rounded-lg border border-border/30" />
+              <img src={assetUrl(r.src)} alt={r.label} className="w-full rounded-lg border border-border/30" />
             </div>
           ))}
         </div>
@@ -138,7 +138,7 @@ export function ComparisonGroup({ original, results }: { original: string; resul
         <div className="grid grid-cols-3 gap-3 items-start">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">Original</div>
-            <img src={original} alt="Original" className="w-full rounded-lg border border-border/30" />
+            <img src={assetUrl(original)} alt="Original" className="w-full rounded-lg border border-border/30" />
           </div>
           {results.map((r, i) => (
             <div key={i}>
@@ -148,7 +148,7 @@ export function ComparisonGroup({ original, results }: { original: string; resul
               )}>
                 {r.label}
               </div>
-              <img src={r.src} alt={r.label} className="w-full rounded-lg border border-border/30" />
+              <img src={assetUrl(r.src)} alt={r.label} className="w-full rounded-lg border border-border/30" />
             </div>
           ))}
         </div>
@@ -173,7 +173,7 @@ export function PhotoGallery({ photos }: { photos: GalleryItem[] }) {
           >
             <div className="aspect-[4/3] w-full">
               <img
-                src={photo.src}
+                src={assetUrl(photo.src)}
                 alt={photo.caption}
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               />
@@ -199,7 +199,7 @@ export function PhotoGallery({ photos }: { photos: GalleryItem[] }) {
           </button>
           <figure className="max-w-[90vw] max-h-[85vh] flex flex-col items-center gap-3" onClick={(e) => e.stopPropagation()}>
             <img
-              src={photos[selected].src}
+              src={assetUrl(photos[selected].src)}
               alt={photos[selected].caption}
               className="max-w-full max-h-[75vh] rounded-xl object-contain shadow-2xl"
             />

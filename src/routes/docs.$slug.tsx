@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft } from "lucide-react";
+import { assetUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/docs/$slug")({
   component: DocsPage,
@@ -14,7 +15,7 @@ function DocsPage() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch(`/docs/${encodeURIComponent(slug)}.md`)
+    fetch(assetUrl(`/docs/${encodeURIComponent(slug)}.md`))
       .then((res) => {
         if (!res.ok) throw new Error("Not found");
         return res.text();
