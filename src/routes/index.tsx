@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronRight, PanelLeftClose, PanelLeft, Sparkles, FileText, Palette, Type, Presentation, BookOpen } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, PanelLeftClose, PanelLeft, Sparkles, FileText, Palette, Type, Presentation, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHeader, Section, Card, H2, H3, Meta, Eyebrow, ImagePlaceholder, Callout, Quote, LinkChip, ControlPill, ResultsTable, PhotoGallery, ComparisonGroup } from "@/components/shared";
 
@@ -42,6 +42,7 @@ function Index() {
   const [collapsed, setCollapsed] = useState(false);
   const [active, setActive] = useState("intro");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [expandedNav, setExpandedNav] = useState<Record<string, boolean>>({ papers: true, keynote: true });
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -125,7 +126,13 @@ function Index() {
               return (
                 <div key={item.id}>
                   <button
-                    onClick={() => scrollTo(item.id)}
+                    onClick={() => {
+                      if (item.children && !collapsed) {
+                        setExpandedNav((prev) => ({ ...prev, [item.id]: !prev[item.id] }));
+                      } else {
+                        scrollTo(item.id);
+                      }
+                    }}
                     title={collapsed ? item.label : undefined}
                     className={cn(
                       "group flex w-full items-center rounded-lg transition-all duration-200",
@@ -137,9 +144,12 @@ function Index() {
                   >
                     <Icon className={cn("h-[15px] w-[15px] shrink-0", collapsed && "h-[17px] w-[17px]", isActive && "text-primary")} />
                     {!collapsed && <span className="truncate">{item.label}</span>}
-                    {!collapsed && isActive && <ChevronRight className="ml-auto h-3 w-3 opacity-30" />}
+                    {!collapsed && item.children && (
+                      <ChevronDown className={cn("ml-auto h-3 w-3 opacity-40 transition-transform duration-200", expandedNav[item.id] && "rotate-180")} />
+                    )}
+                    {!collapsed && !item.children && isActive && <ChevronRight className="ml-auto h-3 w-3 opacity-30" />}
                   </button>
-                  {!collapsed && item.children && (
+                  {!collapsed && item.children && expandedNav[item.id] && (
                     <div className="ml-7 mt-0.5 space-y-0.5 pl-2">
                       {item.children.map((c) => (
                         <button
