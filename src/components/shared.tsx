@@ -74,21 +74,23 @@ export function ImagePlaceholder({ caption, ratio = "16/9", src, originalCaption
   const [expanded, setExpanded] = useState(false);
   return (
     <figure className="my-3 space-y-2">
-      <div
-        className="relative w-full overflow-hidden rounded-xl border border-border/40 bg-gradient-to-br from-muted/80 to-muted/30"
-        style={{ aspectRatio: ratio }}
-      >
-        {src ? (
-          <img src={assetUrl(src)} alt={caption} className="absolute inset-0 w-full h-full object-contain" />
-        ) : (
+      {src ? (
+        <div className="relative w-full overflow-hidden rounded-xl border border-border/40 bg-gradient-to-br from-muted/80 to-muted/30">
+          <img src={assetUrl(src)} alt={caption} className="w-full h-auto block" />
+        </div>
+      ) : (
+        <div
+          className="relative w-full overflow-hidden rounded-xl border border-border/40 bg-gradient-to-br from-muted/80 to-muted/30"
+          style={{ aspectRatio: ratio }}
+        >
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-2 text-muted-foreground/50">
               <FileText className="h-5 w-5" />
               <span className="text-[10px] tracking-wide uppercase">Image Placeholder</span>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <figcaption>
         <div className="text-center">
           <span className="text-[11px] text-muted-foreground/60">{caption}</span>
@@ -262,9 +264,20 @@ export function LinkChip({ children, href }: { children: React.ReactNode; href: 
   );
 }
 
-export function ControlPill({ label, paper }: { label: string; paper: string }) {
+export function ControlPill({ label, paper, targetId }: { label: string; paper: string; targetId?: string }) {
+  const handleClick = () => {
+    if (targetId) {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   return (
-    <div className="rounded-xl border border-[oklch(0.92_0.01_255)] bg-[oklch(0.97_0.008_260)] p-3 text-center">
+    <div
+      onClick={handleClick}
+      className={cn(
+        "rounded-xl border border-[oklch(0.92_0.01_255)] bg-[oklch(0.97_0.008_260)] p-3 text-center transition-all duration-200",
+        targetId && "cursor-pointer hover:border-primary/40 hover:shadow-sm hover:bg-[oklch(0.95_0.015_260)]",
+      )}
+    >
       <div className="text-[11px] font-semibold text-foreground">{label}</div>
       <div className="text-[10px] text-primary/70 mt-0.5 font-medium">{paper}</div>
     </div>
