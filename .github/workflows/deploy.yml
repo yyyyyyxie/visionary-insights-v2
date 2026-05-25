@@ -27,15 +27,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Verify dist
+      - name: Verify build output
         run: |
-          echo "=== dist contents ==="
-          ls -la dist/
-          echo "=== dist/index.html ==="
+          if grep -q "/src/main.tsx" dist/index.html; then
+            echo "ERROR: dist/index.html contains raw source reference!"
+            exit 1
+          fi
+          echo "Build output verified:"
           cat dist/index.html
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
