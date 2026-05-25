@@ -339,6 +339,13 @@ function Index() {
                     <li>视频模型生成一个未来很贵，更不用说生成所有可能未来</li>
                     <li>未来需要<strong>高效、紧凑、能表达动态与可能性</strong>的 world model</li>
                   </ul>
+                  <H3>演示视频</H3>
+                  <div className="my-3 overflow-hidden rounded-xl border border-border/40">
+                    <video controls className="w-full h-auto block" preload="metadata">
+                      <source src="/video/b2ed118d.mp4" type="video/mp4" />
+                      您的浏览器不支持视频播放。
+                    </video>
+                  </div>
                   {/* <Callout>
                     和可控性的关系：只生成像素就很难真正被控制；理解状态、运动与行动后果，控制才能从 prompt 进入<strong>规划层面</strong>。
                   </Callout> */}
@@ -480,6 +487,7 @@ and other non-Latin languages. TextFlux demonstrates leading performance in scen
                   <LinkChip href="#">MultiCOIN</LinkChip>
                   <LinkChip href="#">Palette Aligned Image Diffusion</LinkChip>
                   <LinkChip href="#">TextFlux</LinkChip>
+                  <LinkChip href="https://github.com/NVlabs/Sana">Sana (视频生成)</LinkChip>
                 </div>
                 <H3>参考资料</H3>
                 <div className="flex flex-wrap gap-2">
